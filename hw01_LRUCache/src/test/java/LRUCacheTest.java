@@ -1,7 +1,6 @@
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.assertj.core.api.Assertions.*;
 
 class LRUCacheTest {
 
@@ -99,13 +98,13 @@ class LRUCacheTest {
     @Test
     void testNullPut() {
         var cache = new LRUCacheImpl<String, Integer>(1);
-        assertThatIllegalArgumentException().isThrownBy(() -> cache.put(null, 1));
-        assertThatIllegalArgumentException().isThrownBy(() -> cache.put("1", null));
+        assertThatNullPointerException().isThrownBy(() -> cache.put(null, 1));
+        assertThatNullPointerException().isThrownBy(() -> cache.put("1", null));
     }
 
     @Test
     void testNullGet() {
         var cache = new LRUCacheImpl<String, Integer>(1);
-        assertThatIllegalArgumentException().isThrownBy(() -> cache.get(null));
+        assertThatNullPointerException().isThrownBy(() -> cache.get(null));
     }
 }
