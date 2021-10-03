@@ -3,6 +3,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Optional;
 
 import org.apache.commons.lang3.Validate;
+import org.jetbrains.annotations.Nullable;
 
 public abstract class LRUCache<K, V> {
     protected final int capacity;
@@ -25,6 +26,7 @@ public abstract class LRUCache<K, V> {
         Validate.isTrue(head.value == value);
     }
 
+    @NotNull
     public Optional<V> get(@NotNull K key) {
         Validate.notNull(key);
         int oldSize = size();
@@ -52,9 +54,12 @@ public abstract class LRUCache<K, V> {
         @NotNull
         V value;
 
+        @Nullable
         Node prev, next;
 
         public Node(@NotNull K key, @NotNull V value) {
+            Validate.notNull(key);
+            Validate.notNull(value);
             this.key = key;
             this.value = value;
         }

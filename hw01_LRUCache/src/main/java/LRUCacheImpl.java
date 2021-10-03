@@ -1,3 +1,4 @@
+import org.apache.commons.lang3.Validate;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -13,6 +14,8 @@ public class LRUCacheImpl<K, V> extends LRUCache<K, V> {
 
     @Override
     protected void doPut(@NotNull K key, @NotNull V value) {
+        Validate.notNull(key);
+        Validate.notNull(value);
         Node node = data.get(key);
         if (node != null) {
             removeNode(node);
@@ -22,6 +25,7 @@ public class LRUCacheImpl<K, V> extends LRUCache<K, V> {
 
     @Override
     protected Optional<V> doGet(@NotNull K key) {
+        Validate.notNull(key);
         Node node = data.get(key);
         if (node == null) {
             return Optional.empty();
@@ -43,6 +47,7 @@ public class LRUCacheImpl<K, V> extends LRUCache<K, V> {
     }
 
     private void addNode(@NotNull Node newNode) {
+        Validate.notNull(newNode);
         if (size() == capacity) {
             if (capacity == 0) {
                 return;
@@ -61,6 +66,7 @@ public class LRUCacheImpl<K, V> extends LRUCache<K, V> {
     }
 
     private void removeNode(@NotNull Node node) {
+        Validate.notNull(node);
         data.remove(node.key);
         if (node.prev != null) {
             node.prev.next = node.next;
