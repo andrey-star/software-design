@@ -1,4 +1,4 @@
-package collector;
+package api;
 
 
 import api.VkClient;
