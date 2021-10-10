@@ -34,9 +34,10 @@ public class Main {
         context.setContextPath("/");
         server.setHandler(context);
 
-        context.addServlet(new ServletHolder(new AddProductServlet()), "/add-product");
-        context.addServlet(new ServletHolder(new GetProductsServlet(new ProductDAO())), "/get-products");
-        context.addServlet(new ServletHolder(new QueryServlet(new ProductDAO())), "/query");
+        ProductDAO productDAO = new ProductDAO();
+        context.addServlet(new ServletHolder(new AddProductServlet(productDAO)), "/add-product");
+        context.addServlet(new ServletHolder(new GetProductsServlet(productDAO)), "/get-products");
+        context.addServlet(new ServletHolder(new QueryServlet(productDAO)), "/query");
 
         server.start();
         server.join();
