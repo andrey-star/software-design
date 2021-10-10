@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import ru.akirakozov.sd.refactoring.DbUtils;
+import ru.akirakozov.sd.refactoring.dao.ProductDAO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,10 +29,12 @@ class GetProductsServletTest {
 
     private GetProductsServlet servlet;
 
+    private final ProductDAO productDAO = new ProductDAO();
+
     @BeforeEach
     void setUp() throws SQLException {
         MockitoAnnotations.openMocks(this);
-        servlet = new GetProductsServlet();
+        servlet = new GetProductsServlet(productDAO);
         DbUtils.initProducts();
     }
 
