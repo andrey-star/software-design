@@ -1,9 +1,6 @@
 package api;
 
 
-import api.VkClient;
-import api.VkNewsfeedManager;
-import api.VkNewsfeedSearchResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
