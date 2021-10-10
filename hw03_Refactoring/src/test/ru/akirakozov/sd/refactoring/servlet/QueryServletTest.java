@@ -6,16 +6,14 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import ru.akirakozov.sd.refactoring.DbUtils;
+import ru.akirakozov.sd.refactoring.dao.ProductDAO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
@@ -31,10 +29,12 @@ class QueryServletTest {
 
     private QueryServlet servlet;
 
+    private final ProductDAO productDAO = new ProductDAO();
+
     @BeforeEach
     void setUp() throws SQLException {
         MockitoAnnotations.openMocks(this);
-        servlet = new QueryServlet();
+        servlet = new QueryServlet(productDAO);
         DbUtils.initProducts();
         DbUtils.addSampleData();
     }
