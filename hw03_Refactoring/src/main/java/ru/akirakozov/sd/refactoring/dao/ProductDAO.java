@@ -15,38 +15,26 @@ public class ProductDAO {
     }
 
     public List<Product> getProducts() throws SQLException {
-        return executeQuery("SELECT * FROM PRODUCT", rs -> {
-            String name = rs.getString("name");
-            long price = rs.getLong("price");
-            return new Product(name, price);
-        });
+        return executeQuery("SELECT * FROM PRODUCT", this::resultSetToProduct);
     }
 
     public Optional<Product> getMaxProduct() throws SQLException {
-        List<Product> products = executeQuery("SELECT * FROM PRODUCT ORDER BY PRICE DESC LIMIT 1", rs -> {
-            String name = rs.getString("name");
-            int price = rs.getInt("price");
-            return new Product(name, price);
-        });
+        List<Product> products = executeQuery("SELECT * FROM PRODUCT ORDER BY PRICE DESC LIMIT 1", this::resultSetToProduct);
         return lastOrEmpty(products);
     }
 
     public Optional<Product> getMinProduct() throws SQLException {
-        List<Product> products = executeQuery("SELECT * FROM PRODUCT ORDER BY PRICE LIMIT 1", rs -> {
-            String name = rs.getString("name");
-            int price = rs.getInt("price");
-            return new Product(name, price);
-        });
+        List<Product> products = executeQuery("SELECT * FROM PRODUCT ORDER BY PRICE LIMIT 1", this::resultSetToProduct);
         return lastOrEmpty(products);
     }
 
     public Optional<Integer> getProductPriceSum() throws SQLException {
-        List<Integer> sums = executeQuery("SELECT SUM(price) FROM PRODUCT", rs -> rs.getInt(1));
+        List<Integer> sums = executeQuery("SELECT SUM(price) FROM PRODUCT", this::resultSetToInt);
         return lastOrEmpty(sums);
     }
 
     public Optional<Integer> getProductCount() throws SQLException {
-        List<Integer> sums = executeQuery("SELECT COUNT(*) FROM PRODUCT", rs -> rs.getInt(1));
+        List<Integer> sums = executeQuery("SELECT COUNT(*) FROM PRODUCT", this::resultSetToInt);
         return lastOrEmpty(sums);
     }
 
@@ -89,6 +77,16 @@ public class ProductDAO {
 
     private <T> Optional<T> lastOrEmpty(List<T> products) {
         return products.isEmpty() ? Optional.empty() : Optional.of(products.get(products.size() - 1));
+    }
+
+    private Product resultSetToProduct(ResultSet rs) throws SQLException {
+        String name = rs.getString("name");
+        int price = rs.getInt("price");
+        return new Product(name, price);
+    }
+
+    private Integer resultSetToInt(ResultSet rs) throws SQLException {
+        return rs.getInt(1);
     }
 
     interface SQLFunction<T, R> {
