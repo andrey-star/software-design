@@ -104,4 +104,25 @@ public class ProductDAO {
             return Optional.ofNullable(res);
         }
     }
+
+    public void initProducts() throws SQLException {
+        try (Connection c = DriverManager.getConnection("jdbc:sqlite:test.db")) {
+            try (Statement s = c.createStatement()) {
+                String sql = "CREATE TABLE IF NOT EXISTS PRODUCT" +
+                        "(ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
+                        " NAME           TEXT    NOT NULL, " +
+                        " PRICE          INT     NOT NULL)";
+                s.executeUpdate(sql);
+            }
+        }
+    }
+
+    public void clearProducts() throws SQLException {
+        try (Connection c = DriverManager.getConnection("jdbc:sqlite:test.db")) {
+            try (Statement stmt = c.createStatement()) {
+                String sql = "DELETE FROM PRODUCT";
+                stmt.executeUpdate(sql);
+            }
+        }
+    }
 }

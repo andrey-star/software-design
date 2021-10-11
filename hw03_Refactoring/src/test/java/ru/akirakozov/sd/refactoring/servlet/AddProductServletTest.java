@@ -8,7 +8,6 @@ import org.mockito.Mock;
 import static org.mockito.Mockito.*;
 
 import org.mockito.MockitoAnnotations;
-import ru.akirakozov.sd.refactoring.DbUtils;
 import ru.akirakozov.sd.refactoring.dao.ProductDAO;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,12 +36,12 @@ class AddProductServletTest {
     void setUp() throws SQLException {
         MockitoAnnotations.openMocks(this);
         servlet = new AddProductServlet(productDAO);
-        DbUtils.initProducts();
+        productDAO.initProducts();
     }
 
     @AfterEach
     void tearDown() throws SQLException {
-        DbUtils.clearProducts();
+        productDAO.clearProducts();
     }
 
     @Test
