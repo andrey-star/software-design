@@ -37,7 +37,7 @@ public class Main {
         ProductDAO productDAO = new ProductDAO();
         context.addServlet(new ServletHolder(new AddProductServlet(productDAO)), "/add-product");
         context.addServlet(new ServletHolder(new GetProductsServlet(productDAO)), "/get-products");
-        context.addServlet(new ServletHolder(new QueryServlet(productDAO)), "/query");
+        context.addServlet(new ServletHolder(new QueryServlet()), "/query");
 
         server.start();
         server.join();
