@@ -1,7 +1,7 @@
 package ru.akirakozov.sd.refactoring.servlet;
 
 import ru.akirakozov.sd.refactoring.dao.ProductDAO;
-import ru.akirakozov.sd.refactoring.entity.Product;
+import ru.akirakozov.sd.refactoring.html.ProductToHtmlConverter;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,24 +14,22 @@ import java.io.IOException;
 public class GetProductsServlet extends HttpServlet {
 
     private final ProductDAO productDAO;
+    private final ProductToHtmlConverter htmlConverter;
 
-    public GetProductsServlet(ProductDAO productDAO) {
+    public GetProductsServlet(ProductDAO productDAO, ProductToHtmlConverter htmlConverter) {
         this.productDAO = productDAO;
+        this.htmlConverter = htmlConverter;
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String resp;
         try {
-            response.getWriter().println("<html><body>");
-            for (Product product : productDAO.getProducts()) {
-                response.getWriter().println(product.getName() + "\t" + product.getPrice() + "</br>");
-            }
-            response.getWriter().println("</body></html>");
-
+            resp = htmlConverter.productsToHtml(productDAO.getProducts());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
+        response.getWriter().println(resp);
         response.setContentType("text/html");
         response.setStatus(HttpServletResponse.SC_OK);
     }

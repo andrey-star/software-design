@@ -7,6 +7,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import ru.akirakozov.sd.refactoring.DbUtils;
 import ru.akirakozov.sd.refactoring.dao.ProductDAO;
+import ru.akirakozov.sd.refactoring.html.ProductToHtmlConverter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,7 +35,7 @@ class GetProductsServletTest {
     @BeforeEach
     void setUp() throws SQLException {
         MockitoAnnotations.openMocks(this);
-        servlet = new GetProductsServlet(productDAO);
+        servlet = new GetProductsServlet(productDAO, new ProductToHtmlConverter());
         productDAO.initProducts();
     }
 

@@ -4,6 +4,7 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import ru.akirakozov.sd.refactoring.dao.ProductDAO;
+import ru.akirakozov.sd.refactoring.html.ProductToHtmlConverter;
 import ru.akirakozov.sd.refactoring.servlet.AddProductServlet;
 import ru.akirakozov.sd.refactoring.servlet.GetProductsServlet;
 import ru.akirakozov.sd.refactoring.servlet.QueryServlet;
@@ -36,7 +37,7 @@ public class Main {
 
         ProductDAO productDAO = new ProductDAO();
         context.addServlet(new ServletHolder(new AddProductServlet(productDAO)), "/add-product");
-        context.addServlet(new ServletHolder(new GetProductsServlet(productDAO)), "/get-products");
+        context.addServlet(new ServletHolder(new GetProductsServlet(productDAO, new ProductToHtmlConverter())), "/get-products");
         context.addServlet(new ServletHolder(new QueryServlet()), "/query");
 
         server.start();
