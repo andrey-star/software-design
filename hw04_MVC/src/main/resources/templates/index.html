@@ -31,7 +31,7 @@
 </div>
 
 <h3>Add new list</h3>
-<form th:object="${todoList}" method="POST" action="/add-todo-list">
+<form th:object="${todoList}" call="POST" action="/add-todo-list">
     <label>
         Name:
         <input type="text" th:field="*{name}"/>
@@ -41,7 +41,7 @@
 
 <div th:unless="${#lists.isEmpty(todoLists)}">
     <h3>Add todo</h3>
-    <form th:object="${todo}" method="POST" action="/add-todo">
+    <form th:object="${todo}" call="POST" action="/add-todo">
         <label>
             Title:
             <input type="text" th:field="*{title}"/>
