@@ -33,6 +33,7 @@ class CalcVisitorTest {
         assertEquals(-2, eval("2 - 2 - 2"));
         assertEquals(2, eval("2 - (2 - 2)"));
         assertEquals(4, eval("(30 + 2) / 8"));
+        assertEquals(1279, eval("(23 + 10) * 5 - 3 * (32 + 5) * (10 - 4 * 5) + 8 / 2"));
     }
 
     private int eval(String input) throws IOException, ParseException {
