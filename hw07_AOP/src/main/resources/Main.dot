@@ -1,33 +1,33 @@
 digraph G {
 	0 [label = "Main.run
-715706 μs
+712413 μs
 100.0%"]
 	1 [label = "Sleeper.<init>
-1542 μs
-0.2%"]
+937 μs
+0.1%"]
 	0 -> 1
 	2 [label = "Sleeper.sleep1
-103648 μs
+103500 μs
 14.5%"]
 	0 -> 2
 	3 [label = "Sleeper.sleep2
-201506 μs
-28.2%"]
+201799 μs
+28.3%"]
 	0 -> 3
 	4 [label = "Sleeper.sleep3
-301888 μs
-42.2%"]
+301270 μs
+42.3%"]
 	0 -> 4
 	5 [label = "Sleeper.innerSleep
-105699 μs
-14.8%"]
+103332 μs
+14.5%"]
 	0 -> 5
 	6 [label = "InnerSleep.<init>
-369 μs
-0.1%"]
+180 μs
+0.0%"]
 	5 -> 6
 	7 [label = "InnerSleep.sleep
-104785 μs
-14.6%"]
+102852 μs
+14.4%"]
 	5 -> 7
 }
