@@ -12,7 +12,8 @@ public class Main {
         ActorSystem system = ActorSystem.create("MySystem");
         ActorRef master = system.actorOf(Props.create(MasterActor.class, new UrlSearchClient("https://search.com")));
 
-        Object response = ask(master, "query", 10000).toCompletableFuture().join();
+        String query = "query";
+        Object response = ask(master, query, 10000).toCompletableFuture().join();
         System.out.println(response);
 
         system.terminate();

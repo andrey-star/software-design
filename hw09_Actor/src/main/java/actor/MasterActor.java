@@ -38,12 +38,15 @@ public class MasterActor extends UntypedActor {
         } else if (o instanceof Response response) {
             results.put(response.engine(), response.results());
             if (Arrays.stream(Engine.values()).allMatch(results::containsKey)) {
-                parent.tell(results, self());
-                getContext().stop(self());
+                stop();
             }
         } else if (o instanceof ReceiveTimeout) {
-            parent.tell(results, self());
-            getContext().stop(self());
+            stop();
         }
+    }
+
+    private void stop() {
+        parent.tell(results, self());
+        getContext().stop(self());
     }
 }
