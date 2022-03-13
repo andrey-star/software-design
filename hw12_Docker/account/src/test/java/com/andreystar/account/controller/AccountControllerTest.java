@@ -2,7 +2,6 @@ package com.andreystar.account.controller;
 
 import com.andreystar.account.entity.Account;
 
-import com.andreystar.account.repository.AccountRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,8 +24,6 @@ public class AccountControllerTest {
 
     @Autowired
     private AccountController controller;
-    @Autowired
-    private AccountRepository repository;
 
     private final TestRestTemplate restTemplate = new TestRestTemplate();
     private long accountId;
